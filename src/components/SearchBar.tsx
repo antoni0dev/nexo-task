@@ -11,7 +11,7 @@ const SearchBar = () => {
           placeholder='Enter cryptocurrency pair, e.g., BTC/USD'
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          className='p-2 pl-10 w-96 border rounded shadow-lg focus:outline-none focus:border-blue-400'
+          className='p-2 pl-10 w-96 border rounded shadow-lg focus:outline-none focus:border-blue-300 rounded-lg'
         />
         <span className='absolute left-3 top-1/2 transform -translate-y-1/2'>
           <svg
