@@ -1,12 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 
-interface ExchangeRateCardProps {
+interface Props {
   exchangeName: string;
   price: number;
   onDetailsClick: () => void;
 }
 
-const ExchangeRateCard: React.FC<ExchangeRateCardProps> = ({
+const ExchangeRateCard: FC<Props> = ({
   exchangeName,
   price,
   onDetailsClick,

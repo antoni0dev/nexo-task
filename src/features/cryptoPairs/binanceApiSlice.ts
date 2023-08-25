@@ -13,11 +13,10 @@ export const binanceApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getTickerData: builder.query({
-      query: (symbol: string) => `ticker/24hr?symbol=${symbol}`,
+    getPairData: builder.query({
+      query: (pair: string) => `ticker/24hr?symbol=${pair}`,
     }),
   }),
 });
 
-export const { useGetTickerDataQuery } = binanceApi;
-export default binanceApi.reducer;
+export const { useGetPairDataQuery } = binanceApi;

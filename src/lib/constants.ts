@@ -1,4 +1,4 @@
 export const PATHS = {
   home: '/',
-  detailsPage: '/details/:cryptoId',
+  details: '/:pair/details',
 };
