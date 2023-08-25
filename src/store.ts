@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { binanceApi } from './features/cryptoPairs/binanceApiSlice';
-import { bitfinexApi } from './features/cryptoPairs/bitfinextApiSlice';
+import { bitfinexApi } from './features/cryptoPairs/bitfinexApiSlice';
 import { krakenApi } from './features/cryptoPairs/krakenApiSlice';
 import { huobiApi } from './features/cryptoPairs/huobiApiSlice';
 

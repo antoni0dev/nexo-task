@@ -3,6 +3,7 @@ import { PATHS } from './lib/constants';
 import App from './App';
 import HomePage from './pages/HomePage';
 import DetailsPage from './pages/DetailsPage';
+import CryptoPairPage from './pages/CryptoPairPage';
 
 export const router = createBrowserRouter([
   {
@@ -14,8 +15,12 @@ export const router = createBrowserRouter([
         index: true,
       },
       {
+        element: <CryptoPairPage />,
+        path: PATHS.pair,
+      },
+      {
         element: <DetailsPage />,
-        path: PATHS.detailsPage,
+        path: PATHS.details,
       },
     ],
   },

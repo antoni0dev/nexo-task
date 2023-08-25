@@ -11,7 +11,10 @@ export const krakenApi = createApi({
     getPairData: builder.query({
       query: (pair: string) => `0/public/Ticker?pair=${pair}"`,
     }),
+    getHistoryTrades: builder.query({
+      query: (pair: string) => `/public/Trades?pair=${pair}`,
+    }),
   }),
 });
 
-export const { useGetPairDataQuery } = krakenApi;
+export const { useGetPairDataQuery, useGetHistoryTradesQuery } = krakenApi;

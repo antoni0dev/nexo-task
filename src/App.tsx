@@ -1,18 +1,13 @@
-import { useState } from 'react';
-import SearchBar from './components/SearchBar';
-import { useGetPairDataQuery } from './features/cryptoPairs/binanceApiSlice';
+import { Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  const [currSearch, setCurrSearch] = useState('');
-
-  const { getTickerData, isLoading, error } = useGetPairDataQuery();
-
   return (
-    <div>
-      <SearchBar />
-      {/* Here, you can map over the fetched data and render ExchangeRateCard components */}
-      {/* Example: data.map(exchange => <ExchangeRateCard {...exchange} />) */}
-    </div>
+    <>
+      <Outlet />
+      <ToastContainer />
+    </>
   );
 };
 

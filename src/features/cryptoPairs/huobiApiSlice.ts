@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 
-const baseUrl = 'ttps://api.huobi.pro/market/';
+const baseUrl = 'https://api.huobi.pro/';
 
 export const huobiApi = createApi({
   reducerPath: 'huobiApi',
@@ -11,7 +11,10 @@ export const huobiApi = createApi({
     getPairData: builder.query({
       query: (pair: string) => `market/detail/merged?symbol=${pair}`,
     }),
+    getHistoryTrades: builder.query({
+      query: (pair: string) => `market/history/trade?symbol=${pair}&size=2`,
+    }),
   }),
 });
 
-export const { useGetPairDataQuery } = huobiApi;
+export const { useGetPairDataQuery, useGetHistoryTradesQuery } = huobiApi;
