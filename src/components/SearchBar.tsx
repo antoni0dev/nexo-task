@@ -34,7 +34,7 @@ const SearchBar: FC<Props> = ({ allPairs, searchTerm, onSearch }) => {
           placeholder='Enter cryptocurrency pair, e.g., BTCUSDT'
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
-          className='p-2 pl-10 w-full border rounded shadow-lg focus:outline-none focus:border-blue-300'
+          className='p-2 pl-10 w-full border rounded shadow-lg focus:outline-none focus:border-gray-300'
         />
 
         {inputVal && (
