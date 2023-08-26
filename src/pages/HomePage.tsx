@@ -107,6 +107,7 @@ const HomePage = () => {
                   {successfulEntries.map(({ name, data }) => (
                     <ExchangeRateCard
                       key={name}
+                      searchPair={searchPair}
                       exchangeName={name}
                       price={data.price}
                       historicalTradeData={data.historyData}
