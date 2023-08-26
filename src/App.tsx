@@ -16,7 +16,7 @@ const App = () => {
       <div className='container mx-auto px-4'>
         <Outlet />
       </div>
-      {isOpen && <Modal isOpen={isOpen}>{modalContent}</Modal>}
+      <Modal isOpen={isOpen}>{modalContent}</Modal>
       <ToastContainer />
     </>
   );
