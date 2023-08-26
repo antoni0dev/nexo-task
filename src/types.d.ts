@@ -4,7 +4,7 @@ interface CryptoPair {
 
 interface BinanceData {
   lastPrice: string;
-  price?: string;
+  price: string;
   qty?: string;
   time?: number;
   isBuyerMaker?: boolean;

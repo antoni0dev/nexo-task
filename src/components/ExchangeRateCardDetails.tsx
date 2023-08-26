@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import TradeDetail from './TradeDetail';
 import Message from './Message';
 
@@ -15,7 +14,7 @@ const ExchangeRateCardDetails = ({
       <ul className='divide-y divide-gray-200'>
         {data.historyData ? (
           data.historyData.data.map((trade: UnifiedTrade) => (
-            <TradeDetail key={uuidv4()} trade={trade} />
+            <TradeDetail key={trade.timestamp} trade={trade} />
           ))
         ) : (
           <Message variant='error' message='No data available' />

@@ -1,26 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const baseUrl = 'https://binance43.p.rapidapi.com/';
+const baseUrl = 'https://api.binance.com/';
 
 export const binanceApi = createApi({
   reducerPath: 'binanceApi',
   baseQuery: fetchBaseQuery({
     baseUrl,
-    prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key', import.meta.env.VITE_RAPID_API_KEY);
-      headers.set('X-RapidAPI-Host', 'binance43.p.rapidapi.com');
-      return headers;
-    },
   }),
   endpoints: (builder) => ({
     getAllPairs: builder.query({
-      query: () => 'ticker/24hr',
+      query: () => 'api/v3/ticker/price',
     }),
     getPairData: builder.query({
-      query: (pair: string) => `ticker/24hr?symbol=${pair}`,
+      query: (pair: string) => `api/v3/ticker/price?symbol=${pair}`,
     }),
     getHistoryTrades: builder.query({
-      query: (pair: string) => `trades?symbol=${pair}`,
+      query: (pair: string, limit = 10) =>
+        `api/v3/trades?symbol=${pair}&limit=${limit}`,
     }),
   }),
 });

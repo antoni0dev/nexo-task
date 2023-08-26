@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { capitalizeString } from '../lib/utils';
 
 interface Props {
   trade: UnifiedTrade;
@@ -14,7 +15,7 @@ const TradeDetail: FC<Props> = ({ trade }) => {
             trade.tradeType === 'sell' ? 'text-red-500' : 'text-green-500'
           }`}
         >
-          {trade.tradeType}
+          {capitalizeString(trade.tradeType || 'Unknown')}
         </span>
         <span className='text-gray-600'>Price</span>
         <span className='font-semibold text-black'>

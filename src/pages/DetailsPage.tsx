@@ -1,17 +1,22 @@
 import { useParams } from 'react-router-dom';
 import { useExchangeData } from '../hooks/useExchangeData';
 import Loader from '../components/Loader';
-import { invariant } from '../lib/utils';
+import { getErrorMessage, invariant } from '../lib/utils';
 import ExchangeRateCardDetails from '../components/ExchangeRateCardDetails';
+import Message from '../components/Message';
 
 const DetailsPage = () => {
   const { pair } = useParams();
   invariant(pair);
 
-  const { exchangeData, isLoading } = useExchangeData(pair);
+  const { exchangeData, isLoading, errors } = useExchangeData(pair);
 
   return isLoading ? (
     <Loader />
+  ) : errors ? (
+    errors.map((error) => (
+      <Message variant='error' message={getErrorMessage(error)} />
+    ))
   ) : (
     <div className='p-6'>
       <h1 className='text-3xl font-bold mb-6'>Details for {pair}</h1>

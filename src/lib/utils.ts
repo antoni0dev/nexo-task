@@ -27,8 +27,9 @@ export const formatSearchPairForExchange = (
 ): string => {
   switch (exchangeName) {
     case Exchange.BINANCE:
-    case Exchange.KRAKEN:
+    case Exchange.KRAKEN: {
       return searchPair;
+    }
     case Exchange.HUOBI:
       return searchPair.toLowerCase();
     case Exchange.BITFINEX:
@@ -49,7 +50,7 @@ export const extractPriceFromData = (
 
   switch (exchangeName) {
     case Exchange.BINANCE:
-      return parseFloat((data as BinanceData).lastPrice);
+      return parseFloat((data as BinanceData).price);
     case Exchange.KRAKEN: {
       const pair = Object.keys((data as KrakenData).result)[0];
       return parseFloat((data as KrakenData).result[pair].c[0]);
@@ -132,4 +133,16 @@ export const normalizeTradeData = (
   }
 
   return unifiedData;
+};
+
+export const capitalizeString = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
+/**
+ * Provide an error message for when the price cannot be formatted
+ */
+export const priceErrorMessage = (exchangeName: string, pair: string) => {
+  const formattedName = capitalizeString(exchangeName);
+
+  return `Price details are unavailable or do not exist at all for ${pair} on ${formattedName}`;
 };

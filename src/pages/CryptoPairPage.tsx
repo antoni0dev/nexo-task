@@ -1,7 +1,7 @@
 import { useExchangeData } from '../hooks/useExchangeData';
 import { useParams } from 'react-router-dom';
-import { invariant } from '../lib/utils';
-import { priceErrorMessage } from '../lib/constants';
+import { getErrorMessage, invariant } from '../lib/utils';
+import { priceErrorMessage } from '../lib/utils';
 import ExchangeRateCard from '../components/ExchangeRateCard';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -10,10 +10,14 @@ const CryptoPairPage = () => {
   const { pair } = useParams();
   invariant(pair);
 
-  const { exchangeData, isLoading } = useExchangeData(pair);
+  const { exchangeData, isLoading, errors } = useExchangeData(pair);
 
   return isLoading ? (
     <Loader />
+  ) : errors ? (
+    errors.map((error) => (
+      <Message variant='error' message={getErrorMessage(error)} />
+    ))
   ) : (
     <div className='container mx-auto py-8'>
       <h1 className='text-4xl font-bold mb-8 text-center'>

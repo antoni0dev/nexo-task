@@ -10,10 +10,10 @@ const Message: FC<Props> = ({ message, variant = 'info' }) => {
 
   switch (variant) {
     case 'error':
-      bgColor = 'bg-red-500';
+      bgColor = 'bg-red-300';
       break;
     case 'success':
-      bgColor = 'bg-green-500';
+      bgColor = 'bg-green-300';
       break;
     default:
       break;
@@ -22,7 +22,7 @@ const Message: FC<Props> = ({ message, variant = 'info' }) => {
   return (
     <aside
       role='alert'
-      className={`p-4 rounded ${bgColor}`}
+      className={`p-4 rounded-xl ${bgColor}`}
       aria-live='assertive'
     >
       {message}
