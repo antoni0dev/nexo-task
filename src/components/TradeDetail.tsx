@@ -9,7 +9,7 @@ const TradeDetail: FC<Props> = ({ trade }) => {
   return (
     <li className='py-4'>
       <div className='grid grid-cols-2 gap-4'>
-        <span className='text-gray-600'>Trade Type</span>
+        <span className='text-gray-600 font-bold'>Trade Type</span>
         <span
           className={`font-semibold ${
             trade.tradeType === 'sell' ? 'text-red-500' : 'text-green-500'

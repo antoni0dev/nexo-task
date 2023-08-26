@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useGetAllPairsQuery } from '../features/cryptoPairs/binanceApiSlice';
-import { getErrorMessage } from '../lib/utils';
+import {
+  getErrorMessage,
+  partitionExchangeDataBySuccess,
+  sortExchangeData,
+} from '../lib/utils';
 import { useExchangeData } from '../hooks/useExchangeData';
 import SearchBar from '../components/SearchBar';
 import Loader from '../components/Loader';
@@ -13,6 +17,9 @@ import { apis } from '../lib/constants';
 const HomePage = () => {
   const dispatch = useDispatch();
   const [searchPair, setSearchPair] = useState('');
+  const [sortedItems, setSortedItems] = useState<
+    ExchangeDataStructure[] | null
+  >(null);
 
   // Data is cached for as long as the component is mounted, e.g. subscribed
   const {
@@ -39,8 +46,25 @@ const HomePage = () => {
     setSearchPair('');
   };
 
+  const handleSort = (
+    key: keyof ExchangeDataStructure['data'],
+    desc: boolean
+  ) => {
+    const sortedData = sortExchangeData(exchangeData, key, desc);
+    setSortedItems(sortedData);
+  };
+
+  // Check if the items have to be sorted depending on state
+  const itemsToDisplay = sortedItems ?? exchangeData;
+
+  // Split successful from error exchange responses
+  const [successfulEntries, errorEntries] = useMemo(
+    () => partitionExchangeDataBySuccess(itemsToDisplay),
+    [itemsToDisplay]
+  );
+
   return (
-    <div>
+    <>
       {isGetAllPairsLoading ? (
         <Loader />
       ) : getAllPairsError ? (
@@ -54,6 +78,7 @@ const HomePage = () => {
               onSearch={handleSearchPair}
             />
           )}
+
           {/* Only when searchPair.length > 0 the exchanges' hooks will run */}
           {searchPair &&
             (isExchangeDataLoading ? (
@@ -64,22 +89,37 @@ const HomePage = () => {
                   <h1 className='text-4xl font-bold italic mb-8 text-center text-gray-700 px-6 py-3'>
                     {searchPair} Rates
                   </h1>
-                  {exchangeData.map(({ name, data }) =>
-                    data.price ? (
-                      <ExchangeRateCard
-                        key={name}
-                        exchangeName={name}
-                        price={data.price}
-                        historicalTradeData={data.historyData}
-                      />
-                    ) : (
-                      <Message
-                        key={name}
-                        variant='error'
-                        message={priceErrorMessage(name, searchPair)}
-                      />
-                    )
-                  )}
+                  <div>
+                    <button
+                      className='bg-gray-700 border-2 border-gray-300 text-gray-100 rounded-xl px-6 py-4 hover:bg-gray-700 hover:text-gray-100 focus:outline-none focus:ring focus:ring-gray-500 transition duration-300'
+                      onClick={() => handleSort('price', false)}
+                    >
+                      Sort by Ascending
+                    </button>
+
+                    <button
+                      className='bg-gray-700 border-2 border-gray-300 text-gray-100 rounded-xl px-6 py-4 hover:bg-gray-700 hover:text-gray-100 focus:outline-none focus:ring focus:ring-gray-500 transition duration-300'
+                      onClick={() => handleSort('price', true)}
+                    >
+                      Sort by Descending
+                    </button>
+                  </div>
+                  {successfulEntries.map(({ name, data }) => (
+                    <ExchangeRateCard
+                      key={name}
+                      exchangeName={name}
+                      price={data.price}
+                      historicalTradeData={data.historyData}
+                    />
+                  ))}
+                  {/* Render Error Entries */}
+                  {errorEntries.map(({ name }) => (
+                    <Message
+                      key={name}
+                      variant='error'
+                      message={priceErrorMessage(name, searchPair)}
+                    />
+                  ))}
                   <button
                     onClick={handleClearSearch}
                     className='mt-6 bg-gray-700 bg-gray-500 border-2 border-gray-300 text-gray-300 rounded-xl px-6 py-4 hover:bg-gray-700 hover:text-gray-100 focus:outline-none focus:ring focus:ring-gray-500 transition duration-300'
@@ -91,7 +131,7 @@ const HomePage = () => {
             ))}
         </>
       )}
-    </div>
+    </>
   );
 };
 

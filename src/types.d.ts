@@ -76,3 +76,21 @@ type HuobiTrade = {
   ts: number;
   direction: 'buy' | 'sell';
 };
+
+type ExchangeDataStructure = {
+  name: Exchange;
+  data: {
+    data: any;
+    price: number | null;
+    isLoading: boolean;
+    error: string | null;
+    historyData:
+      | {
+          [key: string]: UnifiedTrade[];
+        }
+      | undefined;
+    historicalError: string | null;
+  };
+};
+
+type Sortable = UnifiedTrade | ExchangeDataStructure;

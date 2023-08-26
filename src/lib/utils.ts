@@ -146,3 +146,51 @@ export const priceErrorMessage = (exchangeName: string, pair: string) => {
 
   return `Price details are unavailable or do not exist at all for ${pair} on ${formattedName}`;
 };
+
+/**
+ * Sort exchange data by key (in our case "price")
+ */
+export const sortExchangeData = (
+  exchangeData: ExchangeDataStructure[],
+  key: keyof ExchangeDataStructure['data'],
+  desc: boolean = false
+): ExchangeDataStructure[] => {
+  return exchangeData.sort((a, b) => {
+    const aValue =
+      key in a
+        ? a[key as keyof ExchangeData]
+        : a.data[key as keyof ExchangeDataStructure['data']];
+    const bValue =
+      key in b
+        ? b[key as keyof ExchangeData]
+        : b.data[key as keyof ExchangeDataStructure['data']];
+
+    if (aValue > bValue) return desc ? -1 : 1;
+    if (aValue < bValue) return desc ? 1 : -1;
+    return 0;
+  });
+};
+
+/**
+ * Partition exchange data into successful and unsuccessful responses.
+ * This ensures that error responses always appear at the bottom.
+ *
+ * @param {ExchangeDataStructure[]} itemsToDisplay - Data to partition.
+ * @returns {ExchangeDataStructure[][]} - An array where the first element is successful entries and the second is error entries.
+ */
+export const partitionExchangeDataBySuccess = (
+  itemsToDisplay: ExchangeDataStructure[]
+): [ExchangeDataStructure[], ExchangeDataStructure[]] => {
+  const partitions = itemsToDisplay.reduce<{
+    success: ExchangeDataStructure[];
+    errors: ExchangeDataStructure[];
+  }>(
+    (acc, item) => {
+      (item.data.price ? acc.success : acc.errors).push(item);
+      return acc;
+    },
+    { success: [], errors: [] }
+  );
+
+  return [partitions.success, partitions.errors];
+};
