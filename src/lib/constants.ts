@@ -10,6 +10,12 @@ export const PATHS = {
   details: '/:pair/details',
 };
 
+export enum ERROR_MESSAGES {
+  UNKNOWN_ERROR = 'An unknown error occurred',
+  UNKNOWN_EXCHANGE = 'Unknown exchange',
+  INVARIANT_VIOLATION = 'Invariant violation',
+}
+
 export const exchanges = {
   [Exchange.BINANCE]: useBinanceGetPairQuery,
   [Exchange.BITFINEX]: useBitfinexGetPairQuery,

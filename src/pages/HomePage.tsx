@@ -41,7 +41,7 @@ const HomePage = () => {
             searchTerm={searchPair}
             onSearch={handleSearchPair}
           />
-          {/* Check for searchPair.length > 0 as only then the exchanges' hooks will run */}
+          {/* Only when searchPair.length > 0 the exchanges' hooks will run */}
           {!!searchPair &&
             (isExchangeDataLoading ? (
               <Loader />
@@ -57,7 +57,7 @@ const HomePage = () => {
                         key={name}
                         exchangeName={name}
                         price={data.price}
-                        onDetailsClick={() => {}}
+                        historicalTradeData={data.historyData}
                       />
                     ) : (
                       <Message

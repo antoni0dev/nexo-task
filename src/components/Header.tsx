@@ -1,17 +1,17 @@
-import logo from '/images.jpeg';
+import headerImg from '/headerImg.jpeg';
 
 const Header = () => {
   return (
-    <header className='bg-black text-white shadow-md'>
+    <header className='bg-black text-white shadow-lg'>
       <div className='container mx-auto px-4 py-4 flex items-center justify-between'>
         <div className='flex items-center space-x-2'>
           <div className='h-20 w-20 flex items-center justify-center'>
-            <img className='rounded-2xl' src={logo} alt='logo' />
-            <span className='text-lg font-semibold'></span>
+            <img className='rounded-2xl' src={headerImg} alt='logo' />
           </div>
         </div>
-
-        <h1 className='text-2xl font-bold'>Ultimate Crypto Scanner</h1>
+        <h1 className='text-2xl text-gray-300 font-bold'>
+          Crypto Pair Detective
+        </h1>
       </div>
     </header>
   );

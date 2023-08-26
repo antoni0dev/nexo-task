@@ -1,9 +1,13 @@
 import { Exchange } from '../lib/types';
-import { useGetPairDataQuery } from '../features/cryptoPairs/krakenApiSlice';
+import {
+  useGetPairDataQuery,
+  useGetHistoryTradesQuery,
+} from '../features/cryptoPairs/krakenApiSlice';
 import {
   extractPriceFromData,
   formatSearchPairForExchange,
   getErrorMessage,
+  normalizeTradeData,
 } from '../lib/utils';
 
 export const useKrakenData = (
@@ -13,12 +17,35 @@ export const useKrakenData = (
 ) => {
   const formattedSearchPair = formatSearchPairForExchange(exchange, searchPair);
 
-  const { data, isLoading, error } = useGetPairDataQuery(formattedSearchPair, {
+  const pairDataQuery = useGetPairDataQuery(formattedSearchPair, { skip });
+  const historyDataQuery = useGetHistoryTradesQuery(formattedSearchPair, {
     skip,
   });
 
-  const price = error ? extractPriceFromData(exchange, data) : null;
+  const isLoading = pairDataQuery.isLoading || historyDataQuery.isLoading;
 
-  const formattedError = error ? getErrorMessage(error) : null;
-  return { data, price, isLoading, error: formattedError };
+  let normalizedHistoryData;
+  let price = null;
+
+  if (pairDataQuery.isSuccess && historyDataQuery.isSuccess) {
+    normalizedHistoryData = normalizeTradeData(historyDataQuery.data, exchange);
+    price = extractPriceFromData(exchange, pairDataQuery.data);
+  }
+
+  const formattedError = pairDataQuery.error
+    ? getErrorMessage(pairDataQuery.error)
+    : null;
+
+  const formattedHistoricalError = historyDataQuery.error
+    ? getErrorMessage(historyDataQuery.error)
+    : null;
+
+  return {
+    data: pairDataQuery.data || null,
+    price,
+    isLoading,
+    error: formattedError,
+    historyData: normalizedHistoryData,
+    historicalError: formattedHistoricalError,
+  };
 };

@@ -26,7 +26,7 @@ const CryptoPairPage = () => {
               <ExchangeRateCard
                 exchangeName={name}
                 price={data.price}
-                onDetailsClick={() => {}}
+                historicalTradeData={data.historyData}
               />
             ) : (
               <Message

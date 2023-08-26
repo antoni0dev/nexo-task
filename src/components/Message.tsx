@@ -1,25 +1,32 @@
 import { FC } from 'react';
 
-type MessageType = 'success' | 'error' | 'neutral';
-
 interface Props {
-  variant: MessageType;
   message: string;
+  variant: 'info' | 'error' | 'success';
 }
 
-const variantClasses = {
-  success: 'bg-green-100 text-green-700',
-  error: 'bg-red-100 text-red-700',
-  neutral: 'bg-gray-100 text-gray-700',
-};
+const Message: FC<Props> = ({ message, variant = 'info' }) => {
+  let bgColor = 'bg-blue-500';
 
-const Message: FC<Props> = ({ variant = 'neutral', message }) => {
+  switch (variant) {
+    case 'error':
+      bgColor = 'bg-red-500';
+      break;
+    case 'success':
+      bgColor = 'bg-green-500';
+      break;
+    default:
+      break;
+  }
+
   return (
-    <div
-      className={`border rounded-lg shadow-md p-4 bg-white ${variantClasses[variant]}`}
+    <aside
+      role='alert'
+      className={`p-4 rounded ${bgColor}`}
+      aria-live='assertive'
     >
       {message}
-    </div>
+    </aside>
   );
 };
 

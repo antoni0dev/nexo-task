@@ -12,7 +12,7 @@ export const bitfinexApi = createApi({
       query: (pair: string) => `ticker/${pair}`,
     }),
     getHistoryTrades: builder.query({
-      query: (pair: string) => `tickers/hist?symbols=${pair}&limit=100`,
+      query: (pair: string) => `tickers/hist?symbols=${pair}&limit=2`,
     }),
   }),
 });
