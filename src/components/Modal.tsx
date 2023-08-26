@@ -19,8 +19,8 @@ const Modal: FC<Props> = ({ isOpen, children }) => {
           className='absolute inset-0 bg-gray-500 opacity-75'
           onClick={() => dispatch(closeModal())}
         ></div>
-        <div className='relative overflow-auto hover:scroll-auto  bg-white rounded-lg shadow-lg max-w-lg w-full h-[80vh]'>
-          {children}
+        <div className='flex flex-col relative overflow-auto hover:scroll-auto bg-white rounded-lg shadow-lg max-w-lg w-full h-[80vh]'>
+          <div className='flex-grow overflow-y-auto'>{children}</div>
           <div className='bg-gray-100 p-6 flex justify-center'>
             <button
               onClick={() => dispatch(closeModal())}

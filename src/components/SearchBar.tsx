@@ -28,17 +28,17 @@ const SearchBar: FC<Props> = ({ allPairs, searchTerm, onSearch }) => {
 
   return (
     <div className='flex items-center justify-center mt-10'>
-      <div className='relative w-96 bg-gray-800 p-2 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-200'>
+      <div className='relative w-96 bg-gray-700 p-2 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-200'>
         <input
           type='text'
           placeholder='Enter cryptocurrency pair, e.g., BTCUSDT'
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
-          className='p-2 pl-12 w-full rounded-lg focus:outline-none bg-gray-800 text-white placeholder-gray-400'
+          className='p-2 pl-12 w-full rounded-lg focus:outline-none bg-gray-700 text-white placeholder-gray-400'
         />
 
         {inputVal && (
-          <div className='absolute mt-2 w-full bg-gray-800 border border-gray-800 rounded-md shadow-lg divide-y divide-gray-700'>
+          <div className='absolute mt-2 w-full bg-gray-800 border border-gray-700 rounded-md shadow-lg divide-y divide-gray-700'>
             {filteredPairs.length > 0 ? (
               filteredPairs.map((pair) => (
                 <div

@@ -82,7 +82,7 @@ const HomePage = () => {
                   )}
                   <button
                     onClick={handleClearSearch}
-                    className='mt-6 bg-gray-700 bg-gray-700 border-2 border-gray-300 text-gray-300 rounded-xl px-6 py-3 hover:bg-gray-700 hover:text-gray-100 focus:outline-none focus:ring focus:ring-gray-500 transition duration-300'
+                    className='mt-6 bg-gray-700 bg-gray-500 border-2 border-gray-300 text-gray-300 rounded-xl px-6 py-4 hover:bg-gray-700 hover:text-gray-100 focus:outline-none focus:ring focus:ring-gray-500 transition duration-300'
                   >
                     Clear Search
                   </button>
