@@ -28,6 +28,7 @@ const CryptoPairPage = () => {
           <div key={name}>
             {data.price ? (
               <ExchangeRateCard
+                searchPair={pair}
                 exchangeName={name}
                 price={data.price}
                 historicalTradeData={data.historyData}
